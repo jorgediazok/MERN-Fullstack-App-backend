@@ -3,15 +3,6 @@ const { validationResult } = require('express-validator');
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
 
-const DUMMY_USERS = [
-  {
-    id: 'u1',
-    name: 'Jorge Diaz',
-    email: 'jorge@jorge.com',
-    password: 'jorge',
-  },
-];
-
 //Get Users
 
 const getUsers = async (req, res, next) => {
@@ -94,6 +85,7 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
+  // @ts-ignore
   if (!existingUser || existingUser.password !== password) {
     const error = new HttpError(
       'Invalid credentials. Could not log you in.',
