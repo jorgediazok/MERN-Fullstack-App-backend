@@ -9,3 +9,9 @@ util/location.js
 util
 
 /util
+
+.env
+
+/.env
+
+env
