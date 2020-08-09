@@ -15,8 +15,18 @@ const DUMMY_USERS = [
 
 //Get Users
 
-const getUsers = (req, res, next) => {
-  res.status(200).json({ users: DUMMY_USERS });
+const getUsers = async (req, res, next) => {
+  let users;
+  try {
+    users = await User.find({}, '-password');
+  } catch (err) {
+    const error = new HttpError(
+      'Fetching users failed. Please try again later.',
+      500
+    );
+    return next(error);
+  }
+  res.json({ users: users.map((user) => user.toObject({ getters: true })) });
 };
 
 // Creating the signup
@@ -28,7 +38,7 @@ const signup = async (req, res, next) => {
       new HttpError('Invalid inputs passed, please check your data.', 422)
     );
   }
-  const { name, email, password, places } = req.body;
+  const { name, email, password } = req.body;
 
   let existingUser;
 
@@ -56,7 +66,7 @@ const signup = async (req, res, next) => {
     image:
       'https://cdn.muenchen-p.de/image/fetch/c_lfill,h_335,w_640/http://www.muenchen.de/media/shutterstock-2016/sehenswuerdigkeiten/muenchen-panorama-hp.jpg',
     password,
-    places,
+    places: [],
   });
 
   try {
