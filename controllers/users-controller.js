@@ -53,8 +53,7 @@ const signup = async (req, res, next) => {
   const createdUser = new User({
     name,
     email,
-    image:
-      'https://cdn.muenchen-p.de/image/fetch/c_lfill,h_335,w_640/http://www.muenchen.de/media/shutterstock-2016/sehenswuerdigkeiten/muenchen-panorama-hp.jpg',
+    image: req.file.path,
     password,
     places: [],
   });
