@@ -1,3 +1,4 @@
+// @ts-nocheck
 const fs = require('fs');
 const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
@@ -144,6 +145,11 @@ const updatePlace = async (req, res, next) => {
       'Something went wrong. Could not update place.',
       500
     );
+    return next(error);
+  }
+
+  if (place.creator.toString() !== req.userData.userId) {
+    const error = new HttpError('You are not allowed to edit this place.', 500);
     return next(error);
   }
 
