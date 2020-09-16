@@ -51,4 +51,4 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || 'An unknown error occured.' });
 });
 
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
