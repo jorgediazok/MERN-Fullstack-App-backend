@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
-const { create } = require('../models/user');
 
 //Get Users
 
